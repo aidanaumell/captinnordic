@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>NordicTracks - Cross Country Ski Map</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    #map { height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    // Create map
+    const map = L.map('map').setView([39.5, -98.35], 4); // Center of U.S.
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Sample ski areas (you'll want to replace this with real data or GeoJSON)
+    const skiAreas = [
+      { name: "Tahoe XC", lat: 39.204, lng: -120.12 },
+      { name: "Methow Trails", lat: 48.475, lng: -120.184 },
+      { name: "Trapp Family Lodge", lat: 44.468, lng: -72.730 }
+    ];
+
+    skiAreas.forEach(area => {
+      L.marker([area.lat, area.lng])
+        .addTo(map)
+        .bindPopup(`<b>${area.name}</b>`);
+    });
+  </script>
+</body>
+</html>
